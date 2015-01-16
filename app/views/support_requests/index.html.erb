@@ -1,26 +1,31 @@
 <h1> Listing all Requests </h1>
+
+<%= link_to "Create a new request", new_support_request_path, class: "btn btn-info" %>
+<br>
 <%= will_paginate @requests, renderer: BootstrapPagination::Rails %>
 <br>
 <%= form_tag(support_requests_path, :method => "get", id: "search-form") do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search requests" %>
-  <%= submit_tag "Search", :name => nil %>
+  <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
 <% end %>
 <br>
 
-<%= link_to "Create a new request", new_support_request_path, class: "btn btn-info" %>
 <% @requests.each do |r| %>
-  <h3>Name: <%= r.name %>
-  Email:<a> <%= mail_to r.email %> </a>
-  Department: <%= r.department %>
-  Message: <%= r.message %>
-  Created <%= time_ago_in_words(r.created_at) %> ago </h3>
+<div class= "well">
+  <h4>Name: <%= r.name %> 
+  Email:<a> <%= mail_to r.email %> </a> </h4>
+  <b>Department:</b> <%= r.department %></br> 
+  <b>Message: </b> <%= r.message %> |</br>
+  <b>Created </b><%= time_ago_in_words(r.created_at) %> ago  
+  </br></br>
   <% if r.action %>
     <%= button_to "Done", support_request_path(r, {support_request: {action: false}}), method: :patch %>
-  <% else %>
+    <% else %>
+    <%= button_to "not Done", support_request_path(r, {support_request: {action: true}}), method: :patch %>
+  <% end %>
+  <br>
+  <%= link_to "Edit", edit_support_request_path(r), method: :get %> 
+  <%= link_to "Delete", r, method: :delete, data: {confirm: "are u sure?"} %>
+</div>
+  <% end %>
 
-  <%= button_to "not Done", support_request_path(r, {support_request: {action: true}}), method: :patch %>
-  <% end %>
-  <%= button_to "Edit", edit_support_request_path(r), method: :get %> 
-  <%= button_to "Delete", r, method: :delete, data: {confirm: "are u sure?"} %>
-  <% end %>
-  <%= will_paginate @requests, renderer: BootstrapPagination::Rails %>

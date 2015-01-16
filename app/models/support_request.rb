@@ -6,7 +6,7 @@ class SupportRequest < ActiveRecord::Base
   scope :action_scope, -> { order("action DESC") } 
 
  def self.search(x)
-   where("email like ?", "%#{x}%") 
+   where("name like ? OR email like ? OR message like ?", "%#{x}%", "%#{x}%", "%#{x}%" ) 
  end
 
   def set_defaults
