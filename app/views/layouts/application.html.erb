@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QuizOne</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class= "container">
+  <nav class= "nav-main">
+  <%= link_to "New Request", root_path, class: "btn btn-primary" %> 
+  <%= link_to "All Requests", support_requests_path, class: "btn btn-primary" %>  
+  <div class="pull-right"> 
+  </div>
+  </nav>
+  <br>
+  <%= flash[:alert] %>
+  <%= flash[:success] %>
+
+  <%= yield %>
+  </div>
+
+</body>
+</html>
