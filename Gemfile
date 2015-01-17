@@ -51,7 +51,8 @@ gem 'faker'
 gem 'quiet_assets'
 # Also you must use ui too, friend
 gem 'jquery-ui-rails'
-
+#bootstrap heroku fix
+gem 'rails_12factor'
 
 
 

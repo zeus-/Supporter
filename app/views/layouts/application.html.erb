@@ -15,8 +15,11 @@
   </div>
   </nav>
   <br>
-  <%= flash[:alert] %>
-  <%= flash[:success] %>
+  <% flash.each do |type, message| %>
+    <div class="alert <%= flash_helper(type) %> fade in">
+      <%= message %>
+    </div>
+  <% end %>
 
   <%= yield %>
   </div>

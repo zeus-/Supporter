@@ -12,16 +12,20 @@
 
 <% @requests.each do |r| %>
 <div class= "well">
+  <% if r.action? %>
+    <h4>DONE</h4>
+  <% end %>
   <h4>Name: <%= r.name %> 
   Email:<a> <%= mail_to r.email %> </a> </h4>
   <b>Department:</b> <%= r.department %></br> 
-  <b>Message: </b> <%= r.message %> |</br>
-  <b>Created </b><%= time_ago_in_words(r.created_at) %> ago  
+  <b>Message: </b> <%= r.message %> </br>
+  Created <%= time_ago_in_words(r.created_at) %> ago  
   </br></br>
-  <% if r.action %>
-    <%= button_to "Done", support_request_path(r, {support_request: {action: false}}), method: :patch %>
-    <% else %>
-    <%= button_to "not Done", support_request_path(r, {support_request: {action: true}}), method: :patch %>
+  <% if r.action? %>
+  <%= button_to "Mark as incomplete", support_request_path(r, {support_request: {action: false}}), method: :patch %>
+  <% else %>
+
+  <%= button_to "Mark as complete", support_request_path(r, {support_request: {action: true}}), method: :patch %>
   <% end %>
   <br>
   <%= link_to "Edit", edit_support_request_path(r), method: :get %> 

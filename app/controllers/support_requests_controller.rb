@@ -2,11 +2,11 @@ class SupportRequestsController < ApplicationController
   before_action :find_request, except: [:new, :create, :index] 
   
   def index
-    if params[:search]
-      @requests = SupportRequest.search(params[:search]).page(params[:page]).per_page(10)
-      flash.now[:alert] = "In search mode, click All Requests to go back!"
+    if params[:search] 
+      @requests = SupportRequest.order("action ASC").search(params[:search]).paginate(:page => params[:page], :per_page => 5)
+      flash.now[:notice] = "Entering search mode, click All Requests to go back!"
     else
-      @requests = SupportRequest.action_scope.paginate(:page => params[:page], :per_page => 3)
+      @requests = SupportRequest.order("action ASC").paginate(:page => params[:page], :per_page => 5)
     end  
   end
 
@@ -33,7 +33,7 @@ class SupportRequestsController < ApplicationController
   end
   
   def update
-    if @request.update_attributes(r_params) 
+    if @request.update(r_params) 
       redirect_to support_requests_path, alert: "Updated successfully"
     else
       flash.now[:alert] = "Update failed"
