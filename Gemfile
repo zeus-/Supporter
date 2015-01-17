@@ -49,10 +49,10 @@ gem 'will_paginate', '3.0.4'
 gem 'will_paginate-bootstrap'
 gem 'faker'
 gem 'quiet_assets'
-# Also you must use ui too, friend
+# Also you must use ui too, friends
 gem 'jquery-ui-rails'
 #bootstrap heroku fix
 gem 'rails_12factor'
-
+#test
 
 
