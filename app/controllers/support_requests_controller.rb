@@ -3,10 +3,10 @@ class SupportRequestsController < ApplicationController
   
   def index
     if params[:search] 
-      @requests = SupportRequest.order("action ASC").search(params[:search]).paginate(:page => params[:page], :per_page => 5)
+      @requests = SupportRequest.order("action ASC, created_at DESC").search(params[:search]).paginate(:page => params[:page], :per_page => 5)
       flash.now[:notice] = "Entering search mode, click All Requests to go back!"
     else
-      @requests = SupportRequest.order("action ASC").paginate(:page => params[:page], :per_page => 5)
+      @requests = SupportRequest.order("action ASC, created_at DESC").paginate(:page => params[:page], :per_page => 5)
     end  
   end
 

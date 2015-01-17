@@ -3,6 +3,7 @@ class SupportRequest < ActiveRecord::Base
   validates_presence_of :email
   DEPARTMENT = ['sales', 'marketing','tech']
   after_initialize :set_defaults
+  #scope :recent, -> { order("created_at DESC") } 
 
  def self.search(x)
    where("name like ? OR email like ? OR message like ?", "%#{x}%", "%#{x}%", "%#{x}%" ) 
